@@ -1,0 +1,61 @@
+.caniuse_contentdiv {
+	height:170px;
+	overflow:auto;
+}
+
+#caniuse_catlistColumn {
+	float:left;
+	width: 300px;
+}
+
+#caniuse_catlist {
+	margin-top:5px
+}
+
+#caniuse_filter {
+	width: 100%;
+}
+
+.caniuse_catheader {
+	width:100%;
+	background-color:#9c9;
+}
+
+.caniuse_feature {
+	cursor:pointer;
+}
+
+#caniuse_supportdisplay {
+	width:auto;
+	min-width:600px;
+	position:fixed;
+	left:530px;
+}
+
+.caniuse_feature_title { font-size:2em;font-weight:bold;}
+.caniuse_legend * {
+	display: inline-block;
+}
+.caniuse_legend {
+	font-size: 13px;
+	text-align: center;
+}
+.caniuse_legend dt {
+	width: 25px;
+	height: 1em;
+	margin-right: 3px;
+	position: relative;
+	top: 2px;
+}
+.caniuse_legend dd::before {
+	content: '= ';
+}
+.caniuse_legend dd {
+	margin: 0 1em 0 0;
+	line-height: 1em;
+}
+
+.caniuse_y { background-color:#9f3; }
+.caniuse_n { background-color:#f99; }
+.caniuse_a { background-color:#cd5; }
+.caniuse_u { background-color:#ccc; }

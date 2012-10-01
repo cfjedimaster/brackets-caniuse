@@ -1,0 +1,1 @@
+Not really ready yet - when done, will write a proper README.md. Honest.
