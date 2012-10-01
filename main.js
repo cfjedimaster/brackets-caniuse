@@ -24,12 +24,39 @@ define(function (require, exports, module) {
     var loaded = false;
     var featureList = {};
 
+    //hard coded list of browsers we care about, also must match order of display table
+    var browserList = ["ie", "firefox", "chrome", "safari", "opera", "ios_saf", "android"];
+    var browserVersionLookup = {};
+
     function displayFeature(e) {
         var thisFeatureId = $(this).data("featureid");
         var feature = featureList[thisFeatureId];
+        var data;
         console.log(feature);
         //Bit of manipulation for things Mustache can't do - but most likely my fault
         feature.totalUsage = feature.usage_perc_y + feature.usage_perc_a;
+        //This is the biggest manipulation. Going to try to cache this a bit.
+        feature.featuresupport = [];
+
+        var vList = [{label:"Previous",key:"previous"}, {label:"Current",key:"current"}, {label:"Near Future",key:"future"}];
+
+        vList.forEach(function(v) {
+
+            data = {label : v.label};
+            data.browsers = [];
+            for (var i = 0, len = browserList.length; i < len; i++) {
+                var browser = browserList[i];
+                var version = browserVersionLookup[browser][v.key];
+                var supportclass = feature.stats[browser][version];
+                console.log(supportclass);
+                if(supportclass) supportclass = "caniuse_"+supportclass;
+                data.browsers.push({"supportclass" : supportclass, "version" : version});
+            }
+
+            feature.featuresupport.push(data);
+
+        });
+
         var s = Mustache.render(featureHtml,feature);
         $("#caniuse_supportdisplay").html(s);
     }
@@ -45,6 +72,24 @@ define(function (require, exports, module) {
     }
 
     function renderData(rawdata) {
+        console.dir(rawdata);
+
+        /*
+        Going to create a browswerVersionLookup table that allows me to do
+        browserVersionLookup[browserkey].previous == "some version num"
+        Then I can use "some version num" in the features.stats lookup.
+        This makes sense. Honest.
+        */
+        for(var i=0, len=browserList.length; i<len; i++) {
+            var browser = browserList[i];
+            //our hard coded logic for prev/current/next is based on
+            //positions in the array
+            var s = {"previous":rawdata.agents[browser].versions[16], 
+                     "current":rawdata.agents[browser].versions[17],
+                     "future":rawdata.agents[browser].versions[18]}
+            browserVersionLookup[browser] = s;
+        }
+
         var catLookup = {};
 
         for (var key in rawdata.cats) {

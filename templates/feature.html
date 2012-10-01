@@ -38,4 +38,12 @@
 	<th>iOS</th>
 	<th>Android</th>
 </tr>
+{{#featuresupport}}
+<tr>
+	<td>{{label}}</td>
+	{{#browsers}}
+		<td class="{{supportclass}}">{{version}}</td>
+	{{/browsers}}
+</tr>
+{{/featuresupport}}
 </table>

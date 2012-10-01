@@ -1,5 +1,5 @@
 .caniuse_contentdiv {
-	height:170px;
+	height:200px;
 	overflow:auto;
 }
 
@@ -26,10 +26,11 @@
 }
 
 #caniuse_supportdisplay {
+	float:left;
 	width:auto;
-	min-width:600px;
-	position:fixed;
-	left:530px;
+	min-width:700px;
+	margin-left: 15px;
+	margin-top: 5px;
 }
 
 .caniuse_feature_title { font-size:2em;font-weight:bold;}
