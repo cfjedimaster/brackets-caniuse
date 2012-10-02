@@ -1,11 +1,12 @@
 .caniuse_contentdiv {
-	height:200px;
+	height:220px;
 	overflow:auto;
 }
 
 #caniuse_catlistColumn {
 	float:left;
 	width: 300px;
+	padding-bottom: 10px;
 }
 
 #caniuse_catlist {

@@ -32,7 +32,7 @@ define(function (require, exports, module) {
         var thisFeatureId = $(this).data("featureid");
         var feature = featureList[thisFeatureId];
         var data;
-        console.log(feature);
+        //console.log(feature);
         //Bit of manipulation for things Mustache can't do - but most likely my fault
         feature.totalUsage = feature.usage_perc_y + feature.usage_perc_a;
         //This is the biggest manipulation. Going to try to cache this a bit.
@@ -48,7 +48,6 @@ define(function (require, exports, module) {
                 var browser = browserList[i];
                 var version = browserVersionLookup[browser][v.key];
                 var supportclass = feature.stats[browser][version];
-                console.log(supportclass);
                 if(supportclass) supportclass = "caniuse_"+supportclass;
                 data.browsers.push({"supportclass" : supportclass, "version" : version});
             }
@@ -63,7 +62,6 @@ define(function (require, exports, module) {
 
     function handleFilter(e) {
         var f = $(this).val().toLowerCase();
-        console.log(f);
         $(".feature").each(function(index,elm) {
             var text = $(this).text().toLowerCase();
             if(text.indexOf(f) === -1) { $(this).hide();  }
@@ -72,7 +70,6 @@ define(function (require, exports, module) {
     }
 
     function renderData(rawdata) {
-        console.dir(rawdata);
 
         /*
         Going to create a browswerVersionLookup table that allows me to do
