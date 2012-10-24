@@ -35,7 +35,7 @@ define(function (require, exports, module) {
         var data;
         //console.log(feature);
         //Bit of manipulation for things Mustache can't do - but most likely my fault
-        feature.totalUsage = feature.usage_perc_y + feature.usage_perc_a;
+        feature.totalUsage = (feature.usage_perc_y + feature.usage_perc_a).toFixed(2);
         //This is the biggest manipulation. Going to try to cache this a bit.
         feature.featuresupport = [];
 
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
 
     function handleFilter(e) {
         var f = $(this).val().toLowerCase();
-        $(".feature").each(function(index,elm) {
+        $(".caniuse_feature").each(function(index,elm) {
             var text = $(this).text().toLowerCase();
             if(text.indexOf(f) === -1) { $(this).hide();  }
             else { $(this).show(); }
@@ -133,7 +133,6 @@ define(function (require, exports, module) {
 
             //get data if we don't have it yet
             if (!loaded) {
-                console.log("First view, get data and display");
                 $("#caniuse_supportdisplay").html("Getting stuff - stand by and be patient.");
                 var moduleDir = FileUtils.getNativeModuleDirectoryPath(module);
                 var dataFile = new NativeFileSystem.FileEntry(moduleDir + '/data.json');
