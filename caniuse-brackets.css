@@ -5,16 +5,20 @@
 
 #caniuse_catlistColumn {
 	float:left;
-	width: 300px;
+	width: 30%;
+	min-width: 200px;
 	padding-bottom: 10px;
+	padding-left: 10px;
+	max-height: 300px;
+	overflow-y: auto;
 }
 
 #caniuse_catlist {
-	margin-top:5px
+	margin-top:5px;
 }
 
 #caniuse_filter {
-	width: 100%;
+	width: 96%;
 }
 
 .caniuse_catheader {
@@ -28,8 +32,8 @@
 
 #caniuse_supportdisplay {
 	float:left;
-	width:auto;
-	min-width:700px;
+	width: 60%;
+	min-width: 300px;
 	margin-left: 15px;
 	margin-top: 5px;
 }

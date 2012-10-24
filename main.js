@@ -16,7 +16,8 @@ define(function (require, exports, module) {
         NativeFileSystem        = brackets.getModule("file/NativeFileSystem").NativeFileSystem,
         FileUtils               = brackets.getModule("file/FileUtils"),
         ExtensionUtils          = brackets.getModule("utils/ExtensionUtils"),
-        Menus                   = brackets.getModule("command/Menus");
+        Menus                   = brackets.getModule("command/Menus"),
+        Resizer                 = brackets.getModule("utils/Resizer");
     
     //commands
     var VIEW_HIDE_CANIUSE = "caniuse.run";
@@ -173,6 +174,9 @@ define(function (require, exports, module) {
             CommandManager.execute(VIEW_HIDE_CANIUSE);
         });
 
+        // AppInit.htmlReady() has already executed before extensions are loaded
+        // so, for now, we need to call this ourself
+        Resizer.makeResizable($('#caniuse').get(0), "vert", "top", 200);
     }
     
     init();
