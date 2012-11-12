@@ -112,7 +112,6 @@ define(function (require, exports, module) {
             }
         }
 
-        console.dir(categories);
         var s = Mustache.render(catlistHtml,{"categories":categories});
 
         $("#caniuse_catlist").html(s);
@@ -162,7 +161,7 @@ define(function (require, exports, module) {
 
         //add the HTML UI
         var s = Mustache.render(mainHtml);
-        $(".content").append(s);
+        $(s).insertBefore("#status-bar");
 
         $('#caniuse').hide();
         
