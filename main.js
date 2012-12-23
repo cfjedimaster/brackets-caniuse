@@ -140,7 +140,7 @@ define(function (require, exports, module) {
                         renderData(JSON.parse(text));
                     })
                     .fail(function (error) {
-                        FileUtils.showFileOpenError(error.code, dataFile);
+                        FileUtils.showFileOpenError(error.name, dataFile);
                     });
 
             } else {

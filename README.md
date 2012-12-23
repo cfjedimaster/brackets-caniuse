@@ -20,6 +20,8 @@ are still welcome.
 
 History
 =======
+12/23/2012: Small tweak due to a change to in file error handling. See: https://github.com/adobe/brackets/pull/2318  
+
 11/12/2012: Use correct DOM insertion.  
 10/24/2012: Randy Edmunds added some very nice layout updates. I fixed a floating point # and the broken filter.  
 10/2/2012: Modified feature layout and removed some console.logs  
