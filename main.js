@@ -166,7 +166,7 @@ define(function (require, exports, module) {
         $('#caniuse').hide();
         
         var menu = Menus.getMenu(Menus.AppMenuBar.VIEW_MENU);
-        menu.addMenuItem(VIEW_HIDE_CANIUSE, "", Menus.AFTER, "menu-view-sidebar");
+        menu.addMenuItem(VIEW_HIDE_CANIUSE, "", Menus.AFTER);
 
         $('#caniuse .close').click(function () {
             CommandManager.execute(VIEW_HIDE_CANIUSE);

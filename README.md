@@ -20,6 +20,7 @@ are still welcome.
 
 History
 =======
+4/16/2013: add menu fix
 12/23/2012: Small tweak due to a change to in file error handling. See: https://github.com/adobe/brackets/pull/2318  
 
 11/12/2012: Use correct DOM insertion.  
