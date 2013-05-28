@@ -141,9 +141,13 @@ define(function (require, exports, module) {
             $caniuse.show();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(true);
 
-            // Filter on the selected text if any, otherwize clear filter
+            // Filter on the selected text if any
             var editor = EditorManager.getFocusedEditor();
-            $filter.val(editor ? editor.getSelectedText() : null);
+            var selectedText = editor && editor.getSelectedText();
+            if (selectedText && selectedText !== $filter.val()) {
+                $filter.val(selectedText);
+                $("#caniuse_supportdisplay").empty();
+            }
 
             // Focus the filter field and select its value
             $filter.focus().select();
