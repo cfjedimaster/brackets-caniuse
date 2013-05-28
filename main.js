@@ -29,9 +29,13 @@ define(function (require, exports, module) {
     var browserList = ["ie", "firefox", "chrome", "safari", "opera", "ios_saf", "android"];
     var browserVersionLookup = {};
 
-    function displayFeature(e) {
-        var thisFeatureId = $(this).data("featureid");
-        var feature = featureList[thisFeatureId];
+    function handleFeatureFocus(e) {
+        if (e.type === 'click') { $(this).focus() }
+        displayFeature($(this).data("featureid"));
+    }
+
+    function displayFeature(id) {
+        var feature = featureList[id];
         var data;
         //console.log(feature);
         //Bit of manipulation for things Mustache can't do - but most likely my fault
@@ -61,13 +65,56 @@ define(function (require, exports, module) {
         $("#caniuse_supportdisplay").html(s);
     }
 
-    function handleFilter(e) {
-        var f = $(this).val().toLowerCase();
-        $(".caniuse_feature").each(function(index,elm) {
-            var text = $(this).text().toLowerCase();
-            if(text.indexOf(f) === -1) { $(this).hide();  }
-            else { $(this).show(); }
+    function filterFeatures() {
+        var f = $('#caniuse_filter').val().toLowerCase().trim();
+        var hasMatches = false;
+        $("#caniuse .caniuse_cat").each(function() {
+            var catHasMatches = false;
+            $(".caniuse_feature", this).each(function(index,elm) {
+                var text = $(this).text().toLowerCase();
+                if(text.indexOf(f) === -1) { $(this).hide();  }
+                else {
+                    $(this).show();
+                    catHasMatches = hasMatches = true;
+                }
+            });
+            if (catHasMatches) { $(this).show() }
+            else { $(this).hide(); }
         });
+        if (hasMatches) { $('#caniuse .caniuse_noMatches').hide() }
+        else { $('#caniuse .caniuse_noMatches').show() }
+    }
+
+    function handleKeyboard(e) {
+        var $targetEl = null;
+
+        // The filter input is the event source
+        if ($(this).is('input')) {
+            // Down arrow key
+            if (e.keyCode === 40 && isKeyPlain(e))
+                $targetEl = $("#caniuse .caniuse_feature:visible:eq(0)")
+            filterFeatures();
+        // A feature in the list is the event source
+        // Down arrow key or J key
+        } else if ((e.keyCode === 40 || e.keyCode === 74) && isKeyPlain(e)) {
+            e.preventDefault();
+            $targetEl = $(this).nextAll('.caniuse_feature:visible:eq(0)');
+            if (! $targetEl.length)
+                $targetEl = $(this).parent().nextAll('.caniuse_cat:visible:eq(0)').find('.caniuse_feature:visible:eq(0)');
+        // Up arrow key or K key
+        } else if ((e.keyCode === 38 || e.keyCode === 75) && isKeyPlain(e)) {
+            e.preventDefault();
+            $targetEl = $(this).prevAll('.caniuse_feature:visible:eq(0)');
+            if (! $targetEl.length)
+                $targetEl = $(this).parent().prevAll('.caniuse_cat:visible:eq(0)').find('.caniuse_feature:visible:last');
+            if (! $targetEl.length)
+                $targetEl = $('#caniuse_filter');
+        }
+        $targetEl && $targetEl.focus();
+    }
+
+    function isKeyPlain(e) {
+        return ! e.altKey && ! e.shiftKey && ! e.ctrlKey && ! e.metaKey;
     }
 
     function renderData(rawdata) {
@@ -117,19 +164,38 @@ define(function (require, exports, module) {
         $("#caniuse_catlist").html(s);
         $("#caniuse_supportdisplay").html("");
 
-        $("#caniuse_filter").on("keyup", handleFilter);
+        $("#caniuse_filter").on("keyup", handleKeyboard);
+        $("#caniuse .caniuse_feature").on("keydown", handleKeyboard);
+        
+        $("#caniuse .caniuse_feature").on("click focus", handleFeatureFocus);
 
-        $(".caniuse_feature").on("click", displayFeature);
+        loaded = true;
+    }
 
+    function showFeatureIfOnlyOneMatch() {
+        var $matches = $("#caniuse .caniuse_feature:visible")
+        if ($matches.length === 1) { displayFeature($matches.attr('data-featureid')) }
     }
 
     function _handleShowCanIUse() {
         var $caniuse = $("#caniuse");
+        var $filter = $("#caniuse_filter");
         
         if ($caniuse.css("display") === "none") {
             $caniuse.show();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(true);
 
+            // Filter on the selected text if any
+            var editor = EditorManager.getFocusedEditor();
+            var selectedText = editor && editor.getSelectedText();
+            if (selectedText && selectedText !== $filter.val()) {
+                $filter.val(selectedText);
+                $("#caniuse_supportdisplay").empty();
+            }
+
+            // Focus the filter field
+            $filter.focus();
+            
             //get data if we don't have it yet
             if (!loaded) {
                 $("#caniuse_supportdisplay").html("Getting stuff - stand by and be patient.");
@@ -138,17 +204,21 @@ define(function (require, exports, module) {
                 FileUtils.readAsText(dataFile)
                     .done(function (text, readTimestamp) {
                         renderData(JSON.parse(text));
+                        filterFeatures();
+                        showFeatureIfOnlyOneMatch();
                     })
                     .fail(function (error) {
                         FileUtils.showFileOpenError(error.name, dataFile);
                     });
 
             } else {
-                console.log("In theory, do nothing.");
+                filterFeatures();
+                showFeatureIfOnlyOneMatch();
             }
         } else {
             $caniuse.hide();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(false);
+            EditorManager.focusEditor();
         }
         EditorManager.resizeEditor();
     }
@@ -166,7 +236,7 @@ define(function (require, exports, module) {
         $('#caniuse').hide();
         
         var menu = Menus.getMenu(Menus.AppMenuBar.VIEW_MENU);
-        menu.addMenuItem(VIEW_HIDE_CANIUSE, "", Menus.AFTER);
+        menu.addMenuItem(VIEW_HIDE_CANIUSE, "Ctrl-Alt-U", Menus.AFTER);
 
         $('#caniuse .close').click(function () {
             CommandManager.execute(VIEW_HIDE_CANIUSE);
