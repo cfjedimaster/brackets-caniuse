@@ -51,11 +51,14 @@
 	color: inherit;
 }
 
-.caniuse_feature:hover,
-.caniuse_feature:focus {
+.caniuse_feature:hover {
 	color: inherit;
-	background: #e0f0fa;
+	background: rgba(0,0,0,0.1);
 	text-decoration: none;
+}
+
+.caniuse_feature:focus {
+	background: #e0f0fa;
 	outline: 0;
 }
 
