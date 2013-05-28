@@ -29,10 +29,13 @@ define(function (require, exports, module) {
     var browserList = ["ie", "firefox", "chrome", "safari", "opera", "ios_saf", "android"];
     var browserVersionLookup = {};
 
-    function displayFeature(e) {
+    function handleFeatureFocus(e) {
         if (e.type === 'click') { $(this).focus() }
-        var thisFeatureId = $(this).data("featureid");
-        var feature = featureList[thisFeatureId];
+        displayFeature($(this).data("featureid"));
+    }
+
+    function displayFeature(id) {
+        var feature = featureList[id];
         var data;
         //console.log(feature);
         //Bit of manipulation for things Mustache can't do - but most likely my fault
@@ -164,9 +167,14 @@ define(function (require, exports, module) {
         $("#caniuse_filter").on("keyup", handleKeyboard);
         $("#caniuse .caniuse_feature").on("keydown", handleKeyboard);
         
-        $("#caniuse .caniuse_feature").on("click focus", displayFeature);
+        $("#caniuse .caniuse_feature").on("click focus", handleFeatureFocus);
 
         loaded = true;
+    }
+
+    function showFeatureIfOnlyOneMatch() {
+        var $matches = $("#caniuse .caniuse_feature:visible")
+        if ($matches.length === 1) { displayFeature($matches.attr('data-featureid')) }
     }
 
     function _handleShowCanIUse() {
@@ -187,7 +195,7 @@ define(function (require, exports, module) {
 
             // Focus the filter field
             $filter.focus();
-
+            
             //get data if we don't have it yet
             if (!loaded) {
                 $("#caniuse_supportdisplay").html("Getting stuff - stand by and be patient.");
@@ -197,6 +205,7 @@ define(function (require, exports, module) {
                     .done(function (text, readTimestamp) {
                         renderData(JSON.parse(text));
                         filterFeatures();
+                        showFeatureIfOnlyOneMatch();
                     })
                     .fail(function (error) {
                         FileUtils.showFileOpenError(error.name, dataFile);
@@ -204,6 +213,7 @@ define(function (require, exports, module) {
 
             } else {
                 filterFeatures();
+                showFeatureIfOnlyOneMatch();
             }
         } else {
             $caniuse.hide();
