@@ -30,6 +30,7 @@ define(function (require, exports, module) {
     var browserVersionLookup = {};
 
     function displayFeature(e) {
+        if (e.type === 'click') { $(this).focus() }
         var thisFeatureId = $(this).data("featureid");
         var feature = featureList[thisFeatureId];
         var data;
@@ -127,7 +128,7 @@ define(function (require, exports, module) {
 
         $("#caniuse_filter").on("keyup", filterFeatures);
 
-        $(".caniuse_feature").on("click", displayFeature);
+        $(".caniuse_feature").on("click focus", displayFeature);
 
         loaded = true;
     }

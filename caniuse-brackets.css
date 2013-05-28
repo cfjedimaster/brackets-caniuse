@@ -46,12 +46,17 @@
 }
 
 .caniuse_feature {
-	cursor:pointer;
-	padding: 0 18px;
+	display: block;
+	padding: 2px 18px;
+	color: inherit;
 }
 
-.caniuse_feature:hover {
+.caniuse_feature:hover,
+.caniuse_feature:focus {
+	color: inherit;
 	background: #e0f0fa;
+	text-decoration: none;
+	outline: 0;
 }
 
 .caniuse_supportdisplay {
