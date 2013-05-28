@@ -63,10 +63,18 @@ define(function (require, exports, module) {
 
     function filterFeatures() {
         var f = $('#caniuse_filter').val().toLowerCase();
-        $(".caniuse_feature").each(function(index,elm) {
-            var text = $(this).text().toLowerCase();
-            if(text.indexOf(f) === -1) { $(this).hide();  }
-            else { $(this).show(); }
+        $(".caniuse_cat").each(function() {
+            var matches = false;
+            $(".caniuse_feature", this).each(function(index,elm) {
+                var text = $(this).text().toLowerCase();
+                if(text.indexOf(f) === -1) { $(this).hide();  }
+                else {
+                    $(this).show();
+                    matches = true;
+                }
+            });
+            if (matches) { $(this).show() }
+            else { $(this).hide(); }
         });
     }
 

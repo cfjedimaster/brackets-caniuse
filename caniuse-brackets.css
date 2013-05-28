@@ -29,8 +29,12 @@
 	width: calc(100% - 9px);
 }
 
+.caniuse_cat {
+	margin-bottom: 12px;
+}
+
 .caniuse_catheader {
-	margin: 12px 0 6px;
+	margin-bottom: 6px;
 	padding: 0 18px;
 	font-weight: bold;
 	font-size: 18px;
