@@ -63,7 +63,7 @@ define(function (require, exports, module) {
     }
 
     function filterFeatures() {
-        var f = $('#caniuse_filter').val().toLowerCase();
+        var f = $('#caniuse_filter').val().toLowerCase().trim();
         $(".caniuse_cat").each(function() {
             var matches = false;
             $(".caniuse_feature", this).each(function(index,elm) {
