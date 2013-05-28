@@ -130,6 +130,10 @@ define(function (require, exports, module) {
             $caniuse.show();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(true);
 
+            // Filter on the selected text if any, otherwize clear filter
+            var editor = EditorManager.getCurrentFullEditor();
+            $("#caniuse_filter").val(editor ? editor.getSelectedText() : null);
+
             //get data if we don't have it yet
             if (!loaded) {
                 $("#caniuse_supportdisplay").html("Getting stuff - stand by and be patient.");
