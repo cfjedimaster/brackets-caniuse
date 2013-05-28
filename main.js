@@ -91,18 +91,20 @@ define(function (require, exports, module) {
         // A feature in the list is the event source
         // Down arrow key or J key
         } else if ((e.keyCode === 40 || e.keyCode === 74) && isKeyPlain(e)) {
+            e.preventDefault();
             $targetEl = $(this).nextAll('.caniuse_feature:visible:eq(0)');
             if (! $targetEl.length)
                 $targetEl = $(this).parent().nextAll('.caniuse_cat:visible:eq(0)').find('.caniuse_feature:visible:eq(0)');
         // Up arrow key or K key
         } else if ((e.keyCode === 38 || e.keyCode === 75) && isKeyPlain(e)) {
+            e.preventDefault();
             $targetEl = $(this).prevAll('.caniuse_feature:visible:eq(0)');
             if (! $targetEl.length)
                 $targetEl = $(this).parent().prevAll('.caniuse_cat:visible:eq(0)').find('.caniuse_feature:visible:last');
             if (! $targetEl.length)
-                $targetEl = $('#caniuse_filter')
+                $targetEl = $('#caniuse_filter');
         }
-        $targetEl && $targetEl.focus()
+        $targetEl && $targetEl.focus();
     }
 
     function isKeyPlain(e) {
@@ -156,7 +158,8 @@ define(function (require, exports, module) {
         $("#caniuse_catlist").html(s);
         $("#caniuse_supportdisplay").html("");
 
-        $("#caniuse_filter, #caniuse .caniuse_feature").on("keyup", handleKeyboard);
+        $("#caniuse_filter").on("keyup", handleKeyboard);
+        $("#caniuse .caniuse_feature").on("keydown", handleKeyboard);
         
         $("#caniuse .caniuse_feature").on("click focus", displayFeature);
 
