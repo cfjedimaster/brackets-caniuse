@@ -79,6 +79,36 @@ define(function (require, exports, module) {
         });
     }
 
+    function handleKeyboard(e) {
+        var $targetEl = null;
+
+        // The filter input is the event source
+        if ($(this).is('input')) {
+            // Down arrow key
+            if (e.keyCode === 40 && isKeyPlain(e))
+                $targetEl = $("#caniuse .caniuse_feature:visible:eq(0)")
+            filterFeatures();
+        // A feature in the list is the event source
+        // Down arrow key or J key
+        } else if ((e.keyCode === 40 || e.keyCode === 74) && isKeyPlain(e)) {
+            $targetEl = $(this).nextAll('.caniuse_feature:visible:eq(0)');
+            if (! $targetEl.length)
+                $targetEl = $(this).parent().nextAll('.caniuse_cat:visible:eq(0)').find('.caniuse_feature:visible:eq(0)');
+        // Up arrow key or K key
+        } else if ((e.keyCode === 38 || e.keyCode === 75) && isKeyPlain(e)) {
+            $targetEl = $(this).prevAll('.caniuse_feature:visible:eq(0)');
+            if (! $targetEl.length)
+                $targetEl = $(this).parent().prevAll('.caniuse_cat:visible:eq(0)').find('.caniuse_feature:visible:last');
+            if (! $targetEl.length)
+                $targetEl = $('#caniuse_filter')
+        }
+        $targetEl && $targetEl.focus()
+    }
+
+    function isKeyPlain(e) {
+        return ! e.altKey && ! e.shiftKey && ! e.ctrlKey && ! e.metaKey;
+    }
+
     function renderData(rawdata) {
 
         /*
@@ -126,9 +156,9 @@ define(function (require, exports, module) {
         $("#caniuse_catlist").html(s);
         $("#caniuse_supportdisplay").html("");
 
-        $("#caniuse_filter").on("keyup", filterFeatures);
-
-        $(".caniuse_feature").on("click focus", displayFeature);
+        $("#caniuse_filter, #caniuse .caniuse_feature").on("keyup", handleKeyboard);
+        
+        $("#caniuse .caniuse_feature").on("click focus", displayFeature);
 
         loaded = true;
     }
