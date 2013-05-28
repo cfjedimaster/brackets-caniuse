@@ -149,8 +149,8 @@ define(function (require, exports, module) {
                 $("#caniuse_supportdisplay").empty();
             }
 
-            // Focus the filter field and select its value
-            $filter.focus().select();
+            // Focus the filter field
+            $filter.focus();
 
             //get data if we don't have it yet
             if (!loaded) {
