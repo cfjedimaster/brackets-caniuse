@@ -64,19 +64,22 @@ define(function (require, exports, module) {
 
     function filterFeatures() {
         var f = $('#caniuse_filter').val().toLowerCase().trim();
-        $(".caniuse_cat").each(function() {
-            var matches = false;
+        var hasMatches = false;
+        $("#caniuse .caniuse_cat").each(function() {
+            var catHasMatches = false;
             $(".caniuse_feature", this).each(function(index,elm) {
                 var text = $(this).text().toLowerCase();
                 if(text.indexOf(f) === -1) { $(this).hide();  }
                 else {
                     $(this).show();
-                    matches = true;
+                    catHasMatches = hasMatches = true;
                 }
             });
-            if (matches) { $(this).show() }
+            if (catHasMatches) { $(this).show() }
             else { $(this).hide(); }
         });
+        if (hasMatches) { $('#caniuse .caniuse_noMatches').hide() }
+        else { $('#caniuse .caniuse_noMatches').show() }
     }
 
     function handleKeyboard(e) {
