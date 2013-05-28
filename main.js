@@ -61,8 +61,8 @@ define(function (require, exports, module) {
         $("#caniuse_supportdisplay").html(s);
     }
 
-    function handleFilter(e) {
-        var f = $(this).val().toLowerCase();
+    function filterFeatures() {
+        var f = $('#caniuse_filter').val().toLowerCase();
         $(".caniuse_feature").each(function(index,elm) {
             var text = $(this).text().toLowerCase();
             if(text.indexOf(f) === -1) { $(this).hide();  }
@@ -117,7 +117,7 @@ define(function (require, exports, module) {
         $("#caniuse_catlist").html(s);
         $("#caniuse_supportdisplay").html("");
 
-        $("#caniuse_filter").on("keyup", handleFilter);
+        $("#caniuse_filter").on("keyup", filterFeatures);
 
         $(".caniuse_feature").on("click", displayFeature);
 
@@ -147,13 +147,14 @@ define(function (require, exports, module) {
                 FileUtils.readAsText(dataFile)
                     .done(function (text, readTimestamp) {
                         renderData(JSON.parse(text));
+                        filterFeatures();
                     })
                     .fail(function (error) {
                         FileUtils.showFileOpenError(error.name, dataFile);
                     });
 
             } else {
-                console.log("In theory, do nothing.");
+                filterFeatures();
             }
         } else {
             $caniuse.hide();
