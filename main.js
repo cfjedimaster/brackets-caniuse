@@ -125,14 +125,18 @@ define(function (require, exports, module) {
 
     function _handleShowCanIUse() {
         var $caniuse = $("#caniuse");
+        var $filter = $("#caniuse_filter");
         
         if ($caniuse.css("display") === "none") {
             $caniuse.show();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(true);
 
             // Filter on the selected text if any, otherwize clear filter
-            var editor = EditorManager.getCurrentFullEditor();
-            $("#caniuse_filter").val(editor ? editor.getSelectedText() : null);
+            var editor = EditorManager.getFocusedEditor();
+            $filter.val(editor ? editor.getSelectedText() : null);
+
+            // Focus the filter field and select its value
+            $filter.focus().select();
 
             //get data if we don't have it yet
             if (!loaded) {
@@ -153,6 +157,7 @@ define(function (require, exports, module) {
         } else {
             $caniuse.hide();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(false);
+            EditorManager.focusEditor();
         }
         EditorManager.resizeEditor();
     }
