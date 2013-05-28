@@ -121,6 +121,7 @@ define(function (require, exports, module) {
 
         $(".caniuse_feature").on("click", displayFeature);
 
+        loaded = true;
     }
 
     function _handleShowCanIUse() {
