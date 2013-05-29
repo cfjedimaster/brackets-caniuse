@@ -20,7 +20,12 @@ are still welcome.
 
 History
 =======
+5/29/2013: Merged in a huge amount of kick ass UI updates by EvilOatmeal: https://github.com/cfjedimaster/brackets-caniuse/pull/3
+
+Also added package.json
+
 4/16/2013: add menu fix
+
 12/23/2012: Small tweak due to a change to in file error handling. See: https://github.com/adobe/brackets/pull/2318  
 
 11/12/2012: Use correct DOM insertion.  
