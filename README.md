@@ -20,6 +20,8 @@ are still welcome.
 
 History
 =======
+6/16/2013: Another update by EvilOatmeal - uses proper bottom panel.
+
 5/29/2013: Merged in a huge amount of kick ass UI updates by EvilOatmeal: https://github.com/cfjedimaster/brackets-caniuse/pull/3
 
 Also added package.json
