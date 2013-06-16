@@ -17,7 +17,11 @@ define(function (require, exports, module) {
         FileUtils               = brackets.getModule("file/FileUtils"),
         ExtensionUtils          = brackets.getModule("utils/ExtensionUtils"),
         Menus                   = brackets.getModule("command/Menus"),
-        PanelManager            = brackets.getModule("view/PanelManager");
+        PanelManager            = brackets.getModule("view/PanelManager"),
+        NativeApp               = brackets.getModule("utils/NativeApp");
+
+    // Date of when the CanIUse data was last updated
+    var caniuseDataLastUpdate = '2013-06-16';
     
     //commands
     var VIEW_HIDE_CANIUSE = "caniuse.run";
@@ -126,12 +130,25 @@ define(function (require, exports, module) {
         This makes sense. Honest.
         */
         for(var i=0, len=browserList.length; i<len; i++) {
+            // The position of the eras in the version arrays can be
+            // seen in rawdata.eras. The eras we want are always
+            // located at the end of the array, like this:
+            //
+            // rawdata.eras = {
+            //   .. more previous eras here ..
+            //   "e-2": "2 versions back",
+            //   "e-1": "Previous version",
+            //   "e0": "Current",
+            //   "e1": "Near future",
+            //   "e2": "Farther future"
+            // }
+            //
+            // So count from the end of the array to always get the right version.
             var browser = browserList[i];
-            //our hard coded logic for prev/current/next is based on
-            //positions in the array
-            var s = {"previous":rawdata.agents[browser].versions[16], 
-                     "current":rawdata.agents[browser].versions[17],
-                     "future":rawdata.agents[browser].versions[18]}
+            var versions = rawdata.agents[browser].versions;
+            var s = {"previous":versions[versions.length - 4],
+                     "current":versions[versions.length - 3],
+                     "future":versions[versions.length - 2]}
             browserVersionLookup[browser] = s;
         }
 
@@ -230,7 +247,7 @@ define(function (require, exports, module) {
         ExtensionUtils.loadStyleSheet(module, "caniuse-brackets.css");
 
         //add the HTML UI
-        var $caniuse = $(Mustache.render(mainHtml));
+        var $caniuse = $(Mustache.render(mainHtml, { caniuseDataLastUpdate: caniuseDataLastUpdate }));
 
         var menu = Menus.getMenu(Menus.AppMenuBar.VIEW_MENU);
         menu.addMenuItem(VIEW_HIDE_CANIUSE, "Ctrl-Alt-U", Menus.AFTER);
@@ -239,9 +256,14 @@ define(function (require, exports, module) {
             CommandManager.execute(VIEW_HIDE_CANIUSE);
         });
 
+        $('.caniuse_openLinkInBrowser', $caniuse).click(function(e) {
+            e.preventDefault();
+            NativeApp.openURLInDefaultBrowser($(this).attr('href'));
+        });
+
         // AppInit.htmlReady() has already executed before extensions are loaded
         // so, for now, we need to call this ourself
-        PanelManager.createBottomPanel('camden.caniuse.panel', $caniuse, 200)
+        PanelManager.createBottomPanel('camden.caniuse.panel', $caniuse, 200);
     }
     
     init();
