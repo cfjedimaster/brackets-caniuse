@@ -11,13 +11,6 @@ To install, simply drag the brackets-caniuse folder to your Brackets/Edge Code
 extensions/user folder, reload your editor, and select "Show CanIUse" from the
 View menu.
 
-Note - the display of individual features needs work. It is too tall vertically 
-and will require you to scroll. I think that's bad, and that's where you can help.
-If you have any bright ideas for how to layout this data better, please fork the code
-and let me know. If you aren't familiar with Git and want to see even just some basic
-ideas, that would rock. Edit as of 10/2 - I think it is a bit better, but comments
-are still welcome.
-
 History
 =======
 6/16/2013: Another update by EvilOatmeal - uses proper bottom panel.
