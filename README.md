@@ -27,4 +27,3 @@ Also added package.json
 10/24/2012: Randy Edmunds added some very nice layout updates. I fixed a floating point # and the broken filter.  
 10/2/2012: Modified feature layout and removed some console.logs  
 10/1/2012: Initial release  
-
