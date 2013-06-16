@@ -17,7 +17,7 @@ define(function (require, exports, module) {
         FileUtils               = brackets.getModule("file/FileUtils"),
         ExtensionUtils          = brackets.getModule("utils/ExtensionUtils"),
         Menus                   = brackets.getModule("command/Menus"),
-        Resizer                 = brackets.getModule("utils/Resizer");
+        PanelManager            = brackets.getModule("view/PanelManager");
     
     //commands
     var VIEW_HIDE_CANIUSE = "caniuse.run";
@@ -230,21 +230,18 @@ define(function (require, exports, module) {
         ExtensionUtils.loadStyleSheet(module, "caniuse-brackets.css");
 
         //add the HTML UI
-        var s = Mustache.render(mainHtml);
-        $(s).insertBefore("#status-bar");
+        var $caniuse = $(Mustache.render(mainHtml));
 
-        $('#caniuse').hide();
-        
         var menu = Menus.getMenu(Menus.AppMenuBar.VIEW_MENU);
         menu.addMenuItem(VIEW_HIDE_CANIUSE, "Ctrl-Alt-U", Menus.AFTER);
 
-        $('#caniuse .close').click(function () {
+        $('.close', $caniuse).click(function () {
             CommandManager.execute(VIEW_HIDE_CANIUSE);
         });
 
         // AppInit.htmlReady() has already executed before extensions are loaded
         // so, for now, we need to call this ourself
-        Resizer.makeResizable($('#caniuse').get(0), "vert", "top", 200);
+        PanelManager.createBottomPanel('camden.caniuse.panel', $caniuse, 200)
     }
     
     init();
