@@ -13,6 +13,13 @@ View menu.
 
 History
 =======
+6/16/2013: More updates by EvilOatmeal - 
+Update to the latest data.json from http://github.com/Fyrd/caniuse.
+Refactor so eras are not hardcoded in browserVersionLookup.
+Add credit to http://caniuse.com for the data.
+Show the date of the latest data update in the UI.
+
+
 6/16/2013: Another update by EvilOatmeal - uses proper bottom panel.
 
 5/29/2013: Merged in a huge amount of kick ass UI updates by EvilOatmeal: https://github.com/cfjedimaster/brackets-caniuse/pull/3
