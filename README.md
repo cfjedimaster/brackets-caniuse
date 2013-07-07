@@ -13,6 +13,9 @@ View menu.
 
 History
 =======
+7/7/2013: Even more updated by EvilOatmeal - 
+Update to the latest CanIUse data. The data now includes a timestamp of when it was last updated so now we're using that to show when the data was last updated.
+
 6/16/2013: More updates by EvilOatmeal - 
 Update to the latest data.json from http://github.com/Fyrd/caniuse.
 Refactor so eras are not hardcoded in browserVersionLookup.
