@@ -20,9 +20,6 @@ define(function (require, exports, module) {
         PanelManager            = brackets.getModule("view/PanelManager"),
         NativeApp               = brackets.getModule("utils/NativeApp");
 
-    // Date of when the CanIUse data was last updated
-    var caniuseDataLastUpdate = '2013-06-16';
-    
     //commands
     var VIEW_HIDE_CANIUSE = "caniuse.run";
     var categories = [];
@@ -220,7 +217,10 @@ define(function (require, exports, module) {
                 var dataFile = new NativeFileSystem.FileEntry(moduleDir + '/data.json');
                 FileUtils.readAsText(dataFile)
                     .done(function (text, readTimestamp) {
-                        renderData(JSON.parse(text));
+                        var data = JSON.parse(text);
+                        var updated = (new Date(data.updated * 1000)).toLocaleDateString();
+                        $('.caniuse_dataUpdatedDate').html(updated);
+                        renderData(data);
                         filterFeatures();
                         showFeatureIfOnlyOneMatch();
                     })
@@ -247,7 +247,7 @@ define(function (require, exports, module) {
         ExtensionUtils.loadStyleSheet(module, "caniuse-brackets.css");
 
         //add the HTML UI
-        var $caniuse = $(Mustache.render(mainHtml, { caniuseDataLastUpdate: caniuseDataLastUpdate }));
+        var $caniuse = $(Mustache.render(mainHtml));
 
         var menu = Menus.getMenu(Menus.AppMenuBar.VIEW_MENU);
         menu.addMenuItem(VIEW_HIDE_CANIUSE, "Ctrl-Alt-U", Menus.AFTER);
