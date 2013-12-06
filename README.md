@@ -13,6 +13,8 @@ View menu.
 
 History
 =======
+12/6/2013: Updates for file system changes (thanks to Peter Flynn)
+
 7/7/2013: Even more updated by EvilOatmeal - 
 Update to the latest CanIUse data. The data now includes a timestamp of when it was last updated so now we're using that to show when the data was last updated.
 

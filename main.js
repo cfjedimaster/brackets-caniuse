@@ -13,12 +13,13 @@ define(function (require, exports, module) {
         CommandManager          = brackets.getModule("command/CommandManager"),
         EditorManager           = brackets.getModule("editor/EditorManager"),
         DocumentManager         = brackets.getModule("document/DocumentManager"),
-        NativeFileSystem        = brackets.getModule("file/NativeFileSystem").NativeFileSystem,
+        FileSystem              = brackets.getModule("filesystem/FileSystem"),
         FileUtils               = brackets.getModule("file/FileUtils"),
         ExtensionUtils          = brackets.getModule("utils/ExtensionUtils"),
         Menus                   = brackets.getModule("command/Menus"),
         PanelManager            = brackets.getModule("view/PanelManager"),
         NativeApp               = brackets.getModule("utils/NativeApp");
+
 
     //commands
     var VIEW_HIDE_CANIUSE = "caniuse.run";
@@ -213,8 +214,12 @@ define(function (require, exports, module) {
             //get data if we don't have it yet
             if (!loaded) {
                 $("#caniuse_supportdisplay").html("Getting stuff - stand by and be patient.");
-                var moduleDir = FileUtils.getNativeModuleDirectoryPath(module);
+                /*
                 var dataFile = new NativeFileSystem.FileEntry(moduleDir + '/data.json');
+                */
+                var moduleDir = FileUtils.getNativeModuleDirectoryPath(module);
+                var dataFile = FileSystem.getFileForPath(moduleDir + "/data.json");
+
                 FileUtils.readAsText(dataFile)
                     .done(function (text, readTimestamp) {
                         var data = JSON.parse(text);
@@ -225,7 +230,7 @@ define(function (require, exports, module) {
                         showFeatureIfOnlyOneMatch();
                     })
                     .fail(function (error) {
-                        FileUtils.showFileOpenError(error.name, dataFile);
+                        FileUtils.showFileOpenError(error, dataFile);
                     });
 
             } else {
