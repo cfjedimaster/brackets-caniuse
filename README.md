@@ -13,6 +13,8 @@ View menu.
 
 History
 =======
+5/20/2014: Merged in a PR by karanjthakkar that corrects layout issues.
+
 12/6/2013: Updates for file system changes (thanks to Peter Flynn)
 
 7/7/2013: Even more updated by EvilOatmeal - 
