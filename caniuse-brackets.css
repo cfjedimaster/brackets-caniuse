@@ -18,7 +18,9 @@
 }
 
 .caniuse_featureColumn {
-	width: 60%;
+	width: 70%;
+	height: 100%;
+	overflow-y: auto;
 }
 
 .caniuse_catlist {
@@ -110,3 +112,17 @@
 .caniuse_n { background-color:#f33; }
 .caniuse_a { background-color:#ff0; }
 .caniuse_u { background-color:#ccc; }
+
+table {
+	width: 100%!important;
+}
+
+th, td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+td:first-child {
+	text-align: right;
+	padding-right: 5px;
+}
