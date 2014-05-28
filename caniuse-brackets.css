@@ -113,16 +113,16 @@
 .caniuse_a { background-color:#ff0; }
 .caniuse_u { background-color:#ccc; }
 
-table {
+table.caniuse {
 	width: 100%!important;
 }
 
-th, td {
+th.caniuse, td.caniuse {
 	text-align: center;
 	vertical-align: middle;
 }
 
-td:first-child {
+td.caniuse:first-child {
 	text-align: right;
 	padding-right: 5px;
 }

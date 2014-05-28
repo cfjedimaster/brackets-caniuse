@@ -13,6 +13,8 @@ View menu.
 
 History
 =======
+5/28/2014: Added caniuse to CSS styles to not mess w/ Brackets
+
 5/20/2014: Merged in a PR by karanjthakkar that corrects layout issues.
 
 12/6/2013: Updates for file system changes (thanks to Peter Flynn)

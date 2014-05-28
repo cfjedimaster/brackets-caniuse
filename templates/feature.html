@@ -18,22 +18,22 @@
 </section>
 
 <!-- main support table -->
-<table>
+<table class="caniuse">
 <tr>
-	<th>&nbsp;</th>
-	<th>IE</th>
-	<th>Firefox</th>
-	<th>Chrome</th>
-	<th>Safari</th>
-	<th>Opera</th>
-	<th>iOS</th>
-	<th>Android</th>
+	<th class="caniuse">&nbsp;</th>
+	<th class="caniuse">IE</th>
+	<th class="caniuse">Firefox</th>
+	<th class="caniuse">Chrome</th>
+	<th class="caniuse">Safari</th>
+	<th class="caniuse">Opera</th>
+	<th class="caniuse">iOS</th>
+	<th class="caniuse">Android</th>
 </tr>
 {{#featuresupport}}
 <tr>
-	<td>{{label}}</td>
+	<td class="caniuse">{{label}}</td>
 	{{#browsers}}
-		<td class="{{supportclass}}">{{version}}</td>
+		<td class="caniuse {{supportclass}}">{{version}}</td>
 	{{/browsers}}
 </tr>
 {{/featuresupport}}
