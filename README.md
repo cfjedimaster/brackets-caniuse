@@ -13,6 +13,8 @@ View menu.
 
 History
 =======
+6/18/2014: New data.
+
 6/17/2014: Fixed a Windows (possibly Linux too) display issue.
 
 5/28/2014: Added caniuse to CSS styles to not mess w/ Brackets
