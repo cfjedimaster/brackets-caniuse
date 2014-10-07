@@ -13,6 +13,8 @@ View menu.
 
 History
 =======
+10/7/2014: Addresses #13, better handling of dark theme. Also refreshed data.
+
 6/18/2014: New data.
 
 6/17/2014: Fixed a Windows (possibly Linux too) display issue.

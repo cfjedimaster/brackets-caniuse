@@ -108,10 +108,10 @@
 	line-height: 1em;
 }
 
-.caniuse_y { background-color:#3c3; }
-.caniuse_n { background-color:#f33; }
-.caniuse_a { background-color:#ff0; }
-.caniuse_u { background-color:#ccc; }
+.caniuse_y { background-color:#3c3; color: black; }
+.caniuse_n { background-color:#f33; color: black; }
+.caniuse_a { background-color:#ff0; color: black; }
+.caniuse_u { background-color:#ccc; color: black; }
 
 table.caniuse {
 	width: 100%!important;
