@@ -13,6 +13,8 @@ View menu.
 
 History
 =======
+5/11/2015: Fixes #15 and updates data.json
+
 10/7/2014: Addresses #13, better handling of dark theme. Also refreshed data.
 
 6/18/2014: New data.

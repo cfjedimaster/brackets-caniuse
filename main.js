@@ -74,7 +74,8 @@ define(function (require, exports, module) {
             var catHasMatches = false;
             $(".caniuse_feature", this).each(function(index,elm) {
                 var text = $(this).text().toLowerCase();
-                if(text.indexOf(f) === -1) { $(this).hide();  }
+                var featureid = $(this).data("featureid");
+                if(text.indexOf(f) === -1 && featureList[featureid].description.indexOf(f) === -1) { $(this).hide();  }
                 else {
                     $(this).show();
                     catHasMatches = hasMatches = true;
