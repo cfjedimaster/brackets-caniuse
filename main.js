@@ -145,9 +145,9 @@ define(function (require, exports, module) {
             // So count from the end of the array to always get the right version.
             var browser = browserList[i];
             var versions = rawdata.agents[browser].versions;
-            var s = {"previous":versions[versions.length - 4],
-                     "current":versions[versions.length - 3],
-                     "future":versions[versions.length - 2]}
+            var s = {"previous":versions[versions.length - 5],
+                     "current":versions[versions.length - 4],
+                     "future":versions[versions.length - 3]}
             browserVersionLookup[browser] = s;
         }
 

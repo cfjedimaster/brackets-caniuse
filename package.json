@@ -3,7 +3,7 @@
     "title": "CanIUse",
     "description": "Adds a panel that renders CanIUse.com data.",
     "homepage": "https://github.com/cfjedimaster/brackets-caniuse",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "author": "Raymond Camden <raymondcamden@gmail.com> (http://www.raymondcamden.com)",
     "license": "MIT",
     "engines": {
