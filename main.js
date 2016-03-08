@@ -17,7 +17,7 @@ define(function (require, exports, module) {
         FileUtils               = brackets.getModule("file/FileUtils"),
         ExtensionUtils          = brackets.getModule("utils/ExtensionUtils"),
         Menus                   = brackets.getModule("command/Menus"),
-        PanelManager            = brackets.getModule("view/PanelManager"),
+        WorkspaceManager        = brackets.getModule("view/WorkspaceManager"),
         NativeApp               = brackets.getModule("utils/NativeApp");
 
 
@@ -182,7 +182,7 @@ define(function (require, exports, module) {
 
         $("#caniuse_filter").on("keyup", handleKeyboard);
         $("#caniuse .caniuse_feature").on("keydown", handleKeyboard);
-        
+
         $("#caniuse .caniuse_feature").on("click focus", handleFeatureFocus);
 
         loaded = true;
@@ -196,7 +196,7 @@ define(function (require, exports, module) {
     function _handleShowCanIUse() {
         var $caniuse = $("#caniuse");
         var $filter = $("#caniuse_filter");
-        
+
         if ($caniuse.css("display") === "none") {
             $caniuse.show();
             CommandManager.get(VIEW_HIDE_CANIUSE).setChecked(true);
@@ -211,7 +211,7 @@ define(function (require, exports, module) {
 
             // Focus the filter field
             $filter.focus();
-            
+
             //get data if we don't have it yet
             if (!loaded) {
                 $("#caniuse_supportdisplay").html("Getting stuff - stand by and be patient.");
@@ -245,11 +245,11 @@ define(function (require, exports, module) {
         }
         EditorManager.resizeEditor();
     }
-    
+
     CommandManager.register("Show CanIUse", VIEW_HIDE_CANIUSE, _handleShowCanIUse);
 
     function init() {
-        
+
         ExtensionUtils.loadStyleSheet(module, "caniuse-brackets.css");
 
         //add the HTML UI
@@ -269,9 +269,9 @@ define(function (require, exports, module) {
 
         // AppInit.htmlReady() has already executed before extensions are loaded
         // so, for now, we need to call this ourself
-        PanelManager.createBottomPanel('camden.caniuse.panel', $caniuse, 200);
+        WorkspaceManager.createBottomPanel('camden.caniuse.panel', $caniuse, 200);
     }
-    
+
     init();
-    
+
 });
