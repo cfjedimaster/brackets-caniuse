@@ -13,6 +13,9 @@ View menu.
 
 History
 =======
+3/8/2016: Merge PR by @oseporto - switches PanelManager to WorkspaceManger.
+Updated data.json
+
 7/4/2015: Fixes #16 and updates data.json
 
 5/11/2015: Fixes #15 and updates data.json
